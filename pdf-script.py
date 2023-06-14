@@ -31,8 +31,8 @@ report.build([report_title])
 table_style = [('GRID', (0,0), (-1,-1), 1, colors.black)]
 table_data = []
 
-# Initializing pie variables
-report_pie = Pie(width=3, height=3)
+# Initializing pie & variables
+report_pie = Pie(width=3*1, height=3*1)
 report_pie.data = []
 report_pie.labels = []
 
@@ -41,11 +41,9 @@ for fruit_name in sorted(fruit):
     report_pie.data.append(fruit[fruit_name])
     report_pie.labels.append(fruit_name)
 
-print(report_pie.data)
-print(report_pie.labels)
-
 report_chart = Drawing()
 report_chart.add(report_pie)
+
 # Writing data to Table
 for k,v in fruit.items():
     table_data.append([k, v])
