@@ -6,7 +6,6 @@ import mimetypes
 import smtplib
 from email.message import EmailMessage
 
-
 message = EmailMessage()
 
 # Defines sender and recipient
@@ -40,4 +39,7 @@ with open(attachment_path, 'rb') as ap:
                            subtype=mime_subtype,
                            filename=os.path.basename(attachment_path))
 
-print(message)
+# print(message)
+
+mail_server.send_message(message)
+mail_server.quit()
