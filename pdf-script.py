@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Image
+from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.graphics.shapes import Drawing
+from reportlab.graphics.charts.piecharts import Pie
 
 # Data to write into PDF
 fruit = {
@@ -25,11 +28,27 @@ report_title = Paragraph("A list of fruits I enjoy", styles["h1"])
 report.build([report_title])
 
 # Initializing Table for PDF
+table_style = [('GRID', (0,0), (-1,-1), 1, colors.black)]
 table_data = []
 
+# Initializing pie variables
+report_pie = Pie(width=3, height=3)
+report_pie.data = []
+report_pie.labels = []
+
+# Drawing pie chart
+for fruit_name in sorted(fruit):
+    report_pie.data.append(fruit[fruit_name])
+    report_pie.labels.append(fruit_name)
+
+print(report_pie.data)
+print(report_pie.labels)
+
+report_chart = Drawing()
+report_chart.add(report_pie)
 # Writing data to Table
 for k,v in fruit.items():
     table_data.append([k, v])
 
-report_table = Table(data=table_data)
-report.build([report_title, report_table])
+report_table = Table(data=table_data, style=table_style, hAlign="LEFT")
+report.build([report_title, report_table, report_chart])
