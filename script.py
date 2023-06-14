@@ -39,7 +39,6 @@ with open(attachment_path, 'rb') as ap:
                            subtype=mime_subtype,
                            filename=os.path.basename(attachment_path))
 
-# print(message)
-
+# Code to send email
 mail_server.send_message(message)
 mail_server.quit()
