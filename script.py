@@ -3,6 +3,7 @@
 import os
 import os.path
 import mimetypes
+import smtplib
 from email.message import EmailMessage
 
 
@@ -19,6 +20,11 @@ attachment_filename = os.path.basename(attachment_path)
 # Using MIME to define type of file being sent
 mime_type, mime_subtype = mimetypes.guess_type(attachment_path)
 mime_type, mime_subtype = mime_type.split('/', 1)
+
+# Logging into SMTP with Gmail w/ env vars
+mail_server = smtplib.SMTP_SSL('smtp.gmail.com')
+mail_pass = os.environ['GMAIL_PASS']
+mail_server.login(recipient, mail_pass)
 
 # The code below creates the email
 message['From'] = sender
